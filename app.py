@@ -110,4 +110,6 @@ async def ws(image: str, draw_landmarks: bool, send) -> None:
         }))
 
 if __name__ == "__main__":
-    serve(host='127.0.0.1', port=5001)
+    import os
+    port = int(os.environ.get("PORT", 5001))
+    serve(host='0.0.0.0', port=port)
