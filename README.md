@@ -68,27 +68,19 @@ visao-computacional-python/
 
 ## Como rodar
 
-**Requisitos:** Python 3.10+ e uma webcam.
+**Requisitos:** [UV](https://github.com/astral-sh/uv), Python 3.10+ e uma webcam.  
+*(Rodar com `python app.py` direto pode travar; use o uv.)*
 
 ```bash
 git clone https://github.com/wagnersk/visao-computacional-python.git
 cd visao-computacional-python
 ```
 
-Instalar dependencias (escolha um):
+Instalar dependencias e subir o servidor:
 
 ```bash
-uv pip install -r requirements.txt --system
-```
-
-```bash
-pip install -r requirements.txt
-```
-
-Iniciar o servidor:
-
-```bash
-python app.py
+uv sync
+uv run python app.py
 ```
 
 Abrir no navegador: **http://localhost:5001**
