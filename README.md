@@ -1,59 +1,110 @@
 <div align="center">
-  <h1>Slash Vision</h1>
-  <p><strong>Fruit Ninja com as mãos — 100% no navegador</strong></p>
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Python-Dark.svg" height="40" alt="Python" />
+  <img width="8" />
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/OpenCV-Dark.svg" height="40" alt="OpenCV" />
+  <img width="8" />
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/JavaScript.svg" height="40" alt="JavaScript" />
+
+  <h1>Rockit Vision</h1>
+  <p><strong>Reconhecimento de gestos manuais em tempo real com visao computacional</strong></p>
 </div>
 
 ---
 
 ## Sobre
 
-**Slash Vision** é um jogo estilo Fruit Ninja que usa a câmera e detecção de mãos em tempo real. Tudo roda no navegador — sem servidor, sem backend. A detecção de mãos usa [MediaPipe Hand Landmarker](https://developers.google.com/mediapipe/solutions/vision/hand_landmarker) via CDN.
+Aplicacao web que captura a webcam do navegador, envia os frames via WebSocket para um backend Python e retorna a classificacao do gesto detectado em cada mao.
+
+O pipeline usa **MediaPipe** para extrair 21 pontos 3D de cada mao e um **Random Forest** (Scikit-Learn) treinado com esses pontos para classificar o gesto.
+
+### Gestos reconhecidos
+
+| Gesto | Label |
+|-------|-------|
+| Paz | `paz` |
+| Coracao | `coracao` |
+| Ola | `ola` |
+| Rock | `rock` |
+| Hangloose | `hangloose` |
+| Spock | `spock` |
+| Joinha | `joinha` |
+
+Quando as duas maos executam o mesmo gesto simultaneamente, a interface exibe um evento de **"Perfect Match"** com a imagem correspondente.
+
+---
 
 ## Stack
 
-- **HTML Canvas** — renderização do jogo a 60 FPS
-- **MediaPipe Hand Landmarker** — detecção de mãos no navegador (WebAssembly)
-- **Web Audio API** — efeitos sonoros e música gerados proceduralmente
-- **CSS** — UI com design dark/neon
+| Camada | Tecnologia |
+|--------|-----------|
+| Framework web | [FastHTML](https://fastht.ml/) |
+| Visao computacional | [OpenCV](https://opencv.org/) |
+| Deteccao de maos | [MediaPipe](https://mediapipe.dev/) (Google) |
+| Classificador | [Scikit-Learn](https://scikit-learn.org/) — Random Forest |
+| Frontend | Vanilla JS, Canvas 2D, WebSocket API |
 
-## Como jogar
-
-1. Abra o jogo no navegador (Chrome/Edge recomendado)
-2. Permita acesso à câmera
-3. Use as mãos para cortar as frutas que aparecem na tela
-4. Evite as bombas
-5. Faça combos para multiplicar pontos
-
-## Rodar localmente
-
-```bash
-npx serve -p 3333
-```
-
-Acesse `http://localhost:3333`
-
-## Deploy na Vercel
-
-O projeto é um site estático. O `vercel.json` já está configurado.
-
-1. Acesse [vercel.com](https://vercel.com) e importe o repositório
-2. Não altere Build Command nem Output Directory
-3. Clique em **Deploy**
+---
 
 ## Estrutura
 
 ```
-├── index.html          # Página principal
+visao-computacional-python/
+├── app.py                  # Servidor FastHTML + WebSocket
+├── core/
+│   ├── processor.py        # GestureProcessor (MediaPipe + sklearn)
+│   └── utils.py            # Encode/decode de imagens base64
+├── models/
+│   ├── gesture_recognizer.task   # Modelo MediaPipe
+│   ├── gesture_model.joblib      # Random Forest treinado
+│   └── label_encoder.joblib      # Encoder de labels
 ├── assets/
-│   ├── script.js       # Game engine + detecção de mãos
-│   └── style.css       # Estilos
-├── vercel.json         # Config de deploy estático
-└── .gitignore
+│   ├── style.css
+│   ├── script.js
+│   └── images/gestures/    # PNGs dos gestos (match)
+└── requirements.txt
 ```
 
 ---
 
+## Como rodar
+
+**Requisitos:** Python 3.10+ e uma webcam.
+
+```bash
+git clone https://github.com/wagnersk/visao-computacional-python.git
+cd visao-computacional-python
+```
+
+Instalar dependencias (escolha um):
+
+```bash
+uv pip install -r requirements.txt --system
+```
+
+```bash
+pip install -r requirements.txt
+```
+
+Iniciar o servidor:
+
+```bash
+python app.py
+```
+
+Abrir no navegador: **http://localhost:5001**
+
+---
+
+## Como funciona
+
+1. O browser captura a webcam e envia cada frame como JPEG base64 via WebSocket.
+2. O backend decodifica a imagem e passa pelo MediaPipe, que extrai 21 coordenadas `(x, y, z)` por mao.
+3. Os 64 valores (handedness + 63 coordenadas) alimentam o Random Forest, que retorna o gesto e a confianca.
+4. O servidor responde com os labels, landmarks e o frame processado.
+5. O frontend desenha os landmarks no Canvas e verifica a logica de Perfect Match.
+
+---
+
 <div align="center">
-  <p>Built by <strong>Wagner Sobreira</strong></p>
+  <sub>Feito por <strong>Wagner Sobreira</strong></sub>
 </div>
-# slash-vision
