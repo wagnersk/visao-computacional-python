@@ -11,7 +11,17 @@
 
 ---
 
-## Sobre
+## O que tem no repositório (3 aulas)
+
+| Pasta | Conteúdo |
+|-------|----------|
+| **aula-01/** | Modelo de algoritmo: implementação da **LeNet-5** em PyTorch, treino com MNIST e visualização dos filtros. Ver [aula-01/README.md](aula-01/README.md). |
+| **aula-02/** | Treino do classificador de gestos: coleta de landmarks com **MediaPipe**, dataset em CSV, **Random Forest** (Scikit-Learn) e reconhecimento pela webcam; mais notebooks (CLIPSeg, YOLO, timm, Gemini). Ver [aula-02/README.md](aula-02/README.md). |
+| **aula-03/** | **Rockit Vision** (este projeto): app web com FastHTML + WebSocket que usa o pipeline da aula-02 em tempo real. Ver [aula-03/README.md](aula-03/README.md). |
+
+---
+
+## Sobre (projeto Aula 03 — Rockit Vision)
 
 Aplicacao web que captura a webcam do navegador, envia os frames via WebSocket para um backend Python e retorna a classificacao do gesto detectado em cada mao.
 
@@ -45,23 +55,26 @@ Quando as duas maos executam o mesmo gesto simultaneamente, a interface exibe um
 
 ---
 
-## Estrutura
+## Estrutura (projeto Aula 03 — Rockit Vision)
 
 ```
 visao-computacional-python/
-├── app.py                  # Servidor FastHTML + WebSocket
-├── core/
-│   ├── processor.py        # GestureProcessor (MediaPipe + sklearn)
-│   └── utils.py            # Encode/decode de imagens base64
-├── models/
-│   ├── gesture_recognizer.task   # Modelo MediaPipe
-│   ├── gesture_model.joblib      # Random Forest treinado
-│   └── label_encoder.joblib      # Encoder de labels
-├── assets/
-│   ├── style.css
-│   ├── script.js
-│   └── images/gestures/    # PNGs dos gestos (match)
-└── requirements.txt
+├── aula-01/                # LeNet-5, PyTorch, MNIST (ver README da pasta)
+├── aula-02/                # Coleta + treino de gestos, MediaPipe, Random Forest (ver README da pasta)
+└── aula-03/                # Rockit Vision — app web
+    ├── app.py              # Servidor FastHTML + WebSocket
+    ├── core/
+    │   ├── processor.py    # GestureProcessor (MediaPipe + sklearn)
+    │   └── utils.py        # Encode/decode de imagens base64
+    ├── models/
+    │   ├── gesture_recognizer.task   # Modelo MediaPipe
+    │   ├── gesture_model.joblib      # Random Forest treinado
+    │   └── label_encoder.joblib      # Encoder de labels
+    ├── assets/
+    │   ├── style.css
+    │   ├── script.js
+    │   └── images/gestures/    # PNGs dos gestos (match)
+    └── requirements.txt
 ```
 
 ---
@@ -75,17 +88,16 @@ O comando `uv sync` cria um ambiente virtual na pasta **`.venv`** (não versiona
 
 ```bash
 git clone https://github.com/wagnersk/visao-computacional-python.git
-cd visao-computacional-python
+cd visao-computacional-python/aula-03
 ```
 
-Instalar dependencias e subir o servidor:
+Instalar dependencias e subir o servidor (o app Rockit Vision fica em `aula-03/`):
 
 ```bash
 uv sync
 uv run python app.py
 ```
 
-Abrir no navegador: **http://localhost:5001**
 
 ---
 
