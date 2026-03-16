@@ -1,0 +1,188 @@
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --accent: #818cf8;
+    --accent-dim: rgba(129,140,248,0.15);
+    --cyan: #22d3ee;
+    --bg: #09090b;
+    --surface: #18181b;
+    --border: #27272a;
+    --text: #fafafa;
+    --muted: #a1a1aa;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* ── Layout: topbar / camera / toolbar ── */
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+}
+
+/* ── Top bar ── */
+.topbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.logo {
+    font-size: 1.1rem;
+    letter-spacing: -0.03em;
+}
+.logo-light { font-weight: 400; color: var(--muted); }
+.logo-bold  { font-weight: 700; color: var(--text); }
+
+.fps {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Camera card ── */
+.camera {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* ── Gesture badges (bottom-left of camera) ── */
+.gesture-badges {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    display: flex;
+    gap: 0.4rem;
+    z-index: 5;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.6rem;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+.badge-hand {
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 0.9rem;
+}
+.badge-name {
+    font-weight: 600;
+    color: var(--text);
+    text-transform: capitalize;
+}
+.badge-conf {
+    color: var(--muted);
+    font-size: 0.7rem;
+}
+
+/* ── Match overlay (center of camera) ── */
+.match-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.match-overlay.active {
+    opacity: 1;
+}
+
+.match-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--cyan);
+    text-shadow: 0 0 30px rgba(34,211,238,0.4);
+    letter-spacing: -0.02em;
+}
+
+.match-img {
+    max-height: 120px;
+    margin-top: 0.5rem;
+    filter: drop-shadow(0 0 20px rgba(34,211,238,0.35));
+    transition: opacity 0.3s ease;
+}
+
+/* ── Bottom toolbar ── */
+.toolbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.toolbar label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--muted);
+    user-select: none;
+}
+
+.toolbar input[type="range"] {
+    width: 80px;
+    accent-color: var(--accent);
+}
+
+.toolbar input[type="checkbox"] {
+    accent-color: var(--accent);
+}
+
+.separator {
+    width: 1px;
+    height: 14px;
+    background: var(--border);
+}
+
+#quality-value {
+    font-variant-numeric: tabular-nums;
+    min-width: 2rem;
+}
