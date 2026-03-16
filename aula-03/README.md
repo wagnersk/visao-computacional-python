@@ -69,7 +69,7 @@ Quando **as duas mãos** fazem o **mesmo gesto**, a interface mostra o overlay *
 - Webcam (para uso real); navegador com suporte a WebSocket e `getUserMedia`
 - **Backend:** python-fasthtml, opencv-python, mediapipe, scikit-learn, joblib, numpy, websockets
 
-Instalação com `uv` (na pasta `aula-03`):
+O `uv sync` cria o ambiente virtual na pasta `.venv` (não versionada). Instalação (na pasta `aula-03`):
 
 ```bash
 uv sync

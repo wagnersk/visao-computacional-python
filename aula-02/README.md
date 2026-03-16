@@ -50,7 +50,7 @@ O arquivo `gesture_recognizer.task` **não** vem no repositório. É preciso bai
 - **Scripts de gestos:** OpenCV, MediaPipe, Pandas, Scikit-Learn, Joblib
 - **Notebooks:** além dos acima, podem usar PyTorch, Transformers, timm, Google GenAI (conforme cada notebook)
 
-Instalação com `uv` (na pasta `aula-02`):
+O `uv sync` cria o ambiente virtual na pasta `.venv` (não versionada). Instalação (na pasta `aula-02`):
 
 ```bash
 uv sync

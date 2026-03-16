@@ -41,7 +41,7 @@ A **LeNet-5** é de Yann LeCun et al.; a documentação e os detalhes da arquite
 - Python 3.x (o projeto pode usar `pyproject.toml` ou ambiente próprio)
 - **Notebook:** PyTorch (`torch`, `torchvision`), NumPy, Matplotlib
 
-Instalação com `uv` (se houver `pyproject.toml` na pasta):
+O `uv sync` cria o ambiente virtual na pasta `.venv` (não versionada). Instalação:
 
 ```bash
 uv sync

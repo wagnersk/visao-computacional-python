@@ -71,6 +71,8 @@ visao-computacional-python/
 **Requisitos:** [UV](https://github.com/astral-sh/uv), Python 3.10+ e uma webcam.  
 *(Rodar com `python app.py` direto pode travar; use o uv.)*
 
+O comando `uv sync` cria um ambiente virtual na pasta **`.venv`** (não versionada; está no `.gitignore`). Quem clonar o repositório deve rodar `uv sync` para recriar o ambiente.
+
 ```bash
 git clone https://github.com/wagnersk/visao-computacional-python.git
 cd visao-computacional-python
